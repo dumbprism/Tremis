@@ -12,7 +12,10 @@ type store struct {
 	data map[string]string 
 	list map[string][]string
 	sets map[string]map[string]bool
+
 }
+
+
 
 func (s *store) set(key string, value string) string {
 	s.data[key] = value
@@ -36,8 +39,6 @@ func (s *store) del(key string) string {
 	return "NULL" // Returning NULL if key doesn't exist
 }
 
- 
- 
 func (s *store) handleCommand(command string, args []string) string {
     switch command {
 
@@ -87,8 +88,9 @@ func (s *store) handleCommand(command string, args []string) string {
       
         return strings.TrimSpace(result)
      case "SISMEMBER":
-        return fmt.Sprintf("%v", s.sismember(args[0], args[1]))    
-    default:
+        return fmt.Sprintf("%v", s.sismember(args[0], args[1]))
+	
+	default:
         return "ERROR : unkown command"
     }
 }
@@ -123,6 +125,7 @@ func main() {
 		data: make(map[string]string),
 		list: make(map[string][]string),
 		sets: make(map[string]map[string]bool),
+
 		 
 	}
 
