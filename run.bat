@@ -4,7 +4,7 @@ set EXE=tremis.exe
 
 if not exist %EXE% (
     echo Welcome to tremis, setting up the server and getting things ready...
-    go build -o %EXE% main.go math.go sets.go
+    go build -o %EXE% main.go math.go sets.go lists.go
 
     if %ERRORLEVEL% neq 0 (
         echo Build failed.

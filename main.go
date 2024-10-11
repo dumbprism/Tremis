@@ -5,11 +5,12 @@ import (
 	"fmt"
 	"net"
 	"strings"
+	"strconv"
 )
 
 type store struct {
 	data map[string]string 
-	// list map[string][]string
+	list map[string][]string
 	sets map[string]map[string]bool
 }
 
@@ -59,6 +60,19 @@ func (s *store) handleCommand(command string, args []string) string {
         return fmt.Sprintf("%v", s.decr(args[0]))
     case "DECRBY":
         return fmt.Sprintf("%v", s.decrBy(args[0], args[1]))
+	case "LPUSH":
+        return fmt.Sprintf("%v", s.lPush(args[0], args[1]))
+   case "RPUSH":
+        return fmt.Sprintf("%v", s.rPush(args[0], args[1]))
+   case "LPOP":
+        return s.lPop(args[0])
+   case "RPOP":
+        return s.rPop(args[0])
+   case "LLEN":
+        return fmt.Sprintf("%v", s.lLen(args[0]))
+    case "LINDEX":
+        index, _ := strconv.Atoi(args[1])
+        return s.lIndex(args[0], index)
 	case "SADD":
         return fmt.Sprintf("%v", s.sadd(args[0], args[1]))
      case "SREM":
@@ -104,7 +118,13 @@ func handleConnection(conn net.Conn, s *store) {
 }
 
 func main() {
-	s := &store{data: make(map[string]string)}
+	// Initialize both data and sets maps
+	s := &store{
+		data: make(map[string]string),
+		list: make(map[string][]string),
+		sets: make(map[string]map[string]bool),
+		 
+	}
 
 	listener, err := net.Listen("tcp", ":6379")
 	if err != nil {
@@ -124,3 +144,4 @@ func main() {
 		go handleConnection(conn, s)
 	}
 }
+
