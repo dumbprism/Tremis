@@ -1,3 +1,5 @@
+# Introduction
+
 This section consists of what led to the idea of creating Tremis and also how is it different from relational databases.
 
 ---
