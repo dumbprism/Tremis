@@ -7,7 +7,7 @@ EXE="tremis"
 if [ ! -f "$EXE" ]; then
     echo "Welcome to tremis, setting up the server and getting things ready..."
     # Build the Go project
-    go build -o "$EXE" main.go math.go sets.go lists.go
+    go build -o "$EXE" main.go math.go sets.go lists.go client.go comm.go
 
     if [ $? -ne 0 ]; then
         echo "Build failed."
