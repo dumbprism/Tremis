@@ -8,7 +8,9 @@ import (
 )
 
 type store struct {
-	data map[string]string
+	data map[string]string 
+	// list map[string][]string
+	sets map[string]map[string]bool
 }
 
 func (s *store) set(key string, value string) string {
@@ -33,16 +35,22 @@ func (s *store) del(key string) string {
 	return "NULL" // Returning NULL if key doesn't exist
 }
 
+ 
+ 
 func (s *store) handleCommand(command string, args []string) string {
     switch command {
+
     case "SET":
         // Using Join to save the rest of the received data
         return s.set(args[0], strings.Join(args[1:], " "))
+		
     case "GET":
         return s.get(args[0])
+		
     case "DEL":
         s.del(args[0])
         return "DELETED"
+	
     case "INCR":
         return fmt.Sprintf("%v", s.incr(args[0]))
     case "INCRBY":
@@ -51,6 +59,21 @@ func (s *store) handleCommand(command string, args []string) string {
         return fmt.Sprintf("%v", s.decr(args[0]))
     case "DECRBY":
         return fmt.Sprintf("%v", s.decrBy(args[0], args[1]))
+	case "SADD":
+        return fmt.Sprintf("%v", s.sadd(args[0], args[1]))
+     case "SREM":
+        return fmt.Sprintf("%v", s.srem(args[0], args[1]))
+     case "SMEMBERS":
+        members := s.smembers(args[0])
+        result := ""
+      
+        for _, member := range members {
+           result += fmt.Sprintf("%v ", member)
+        }
+      
+        return strings.TrimSpace(result)
+     case "SISMEMBER":
+        return fmt.Sprintf("%v", s.sismember(args[0], args[1]))    
     default:
         return "ERROR : unkown command"
     }

@@ -3,14 +3,14 @@
 set EXE=tremis.exe
 
 if not exist %EXE% (
-    echo Building the project for the first time...
-    go build -o %EXE% main.go math.go
+    echo Welcome to tremis, setting up the server and getting things ready...
+    go build -o %EXE% main.go math.go sets.go
 
     if %ERRORLEVEL% neq 0 (
         echo Build failed.
         exit /b %ERRORLEVEL%
     )
-    echo Build succeeded.
+    echo Build succeeded. Enjoy using Tremis, happy hacking !
 ) else (
     echo Executable already exists. Skipping build.
 )
