@@ -13,10 +13,12 @@ type store struct {
 	list map[string][]string
 	sets map[string]map[string]bool
 	subs map[string][]client
+	disk *diskStore
 }
 
 func (s *store) set(key string, value string) string {
 	s.data[key] = value
+	s.disk.save(s.data)
 	return "OK"
 }
 
@@ -32,6 +34,7 @@ func (s *store) del(key string) string {
 	_, exists := s.data[key]
 	if exists {
 		delete(s.data, key)
+		s.disk.save(s.data)
 		return "OK"
 	}
 	return "NULL" // Returning NULL if key doesn't exist
@@ -129,6 +132,8 @@ func main() {
 		list: make(map[string][]string),
 		sets: make(map[string]map[string]bool),
 		subs: make(map[string][]client),
+		disk: &diskStore{},
+		
 	}
 
 	listener, err := net.Listen("tcp", ":6379")
