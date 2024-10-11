@@ -34,27 +34,28 @@ func (s *store) del(key string) string {
 }
 
 func (s *store) handleCommand(command string, args []string) string {
-	switch command {
-	case "SET":
-		if len(args) < 2 {
-			return "ERROR: SET requires key and value"
-		}
-		// Join the rest of the arguments as value
-		return s.set(args[0], strings.Join(args[1:], " "))
-	case "GET":
-		if len(args) < 1 {
-			return "ERROR: GET requires key"
-		}
-		return s.get(args[0])
-	case "DEL":
-		if len(args) < 1 {
-			return "ERROR: DEL requires key"
-		}
-		return s.del(args[0])
-	default:
-		return "ERROR: Unknown command"
-	}
+    switch command {
+    case "SET":
+        // Using Join to save the rest of the received data
+        return s.set(args[0], strings.Join(args[1:], " "))
+    case "GET":
+        return s.get(args[0])
+    case "DEL":
+        s.del(args[0])
+        return "DELETED"
+    case "INCR":
+        return fmt.Sprintf("%v", s.incr(args[0]))
+    case "INCRBY":
+        return fmt.Sprintf("%v", s.incrBy(args[0], args[1]))
+    case "DECR":
+        return fmt.Sprintf("%v", s.decr(args[0]))
+    case "DECRBY":
+        return fmt.Sprintf("%v", s.decrBy(args[0], args[1]))
+    default:
+        return "ERROR : unkown command"
+    }
 }
+
 
 func handleConnection(conn net.Conn, s *store) {
 	defer conn.Close()
