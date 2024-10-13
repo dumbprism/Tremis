@@ -1,6 +1,6 @@
 # Introduction
 
-This section consists of what led to the idea of creating Tremis and also how is it different from relational databases.
+This section consists of what led to the idea of creating Tremis and also how is it different from relational databases. The following sections will contain what are the commands, the idea behind building them and how to use them as well
 
 ---
 
