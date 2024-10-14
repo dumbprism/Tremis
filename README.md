@@ -24,7 +24,7 @@ BTW, if you want to contribute this project locally on your machine just use `ne
 I am soon going to create a setup wizard where users would be able to access TREMIS locally on their host machines and level up things slowly as time progresses
 
 Until Then,
-Signing Off
+Signing Off,
 DumbPrism
 
 
