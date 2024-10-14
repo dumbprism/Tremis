@@ -1,4 +1,6 @@
 
+# SET command
+
 The sole purpose of creating set as the name suggests was to set values to your database and then add an optional disk storage to it. Storing it in the disk is quite upto the user to decide but in general it would work as an in-memory database set functionality. 
 
 ---
