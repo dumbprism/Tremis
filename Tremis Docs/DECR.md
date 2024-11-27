@@ -1,5 +1,5 @@
 
-### Decrement by command
+### Decrement command
 
 The `DECR` command works just as the name suggests. Just few changes to the increment functionality and we are good to go with decrement as well.
 

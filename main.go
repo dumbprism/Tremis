@@ -40,6 +40,32 @@ func (s *store) del(key string) string {
 	return "NULL" // Returning NULL if key doesn't exist
 }
 
+func (s *store) help() string {
+	return `
+Available commands and their syntax:
+1. SET key value             - Set a value for a key
+2. GET key                   - Get the value of a key
+3. DEL key                   - Delete a key
+4. INCR key                  - Increment the value of a key (must be an integer)
+5. INCRBY key increment      - Increment the value of a key by a specific integer
+6. DECR key                  - Decrement the value of a key (must be an integer)
+7. DECRBY key decrement      - Decrement the value of a key by a specific integer
+8. LPUSH list value          - Insert a value at the beginning of a list
+9. RPUSH list value          - Insert a value at the end of a list
+10. LPOP list                - Remove and return the first element of a list
+11. RPOP list                - Remove and return the last element of a list
+12. LLEN list                - Get the length of a list
+13. LINDEX list index        - Get the element at the specified index in a list
+14. SADD set value           - Add a value to a set
+15. SREM set value           - Remove a value from a set
+16. SMEMBERS set             - Get all members of a set
+17. SISMEMBER set value      - Check if a value is a member of a set
+18. SUBSCRIBE channel        - Subscribe to a channel
+19. PUBLISH channel message  - Publish a message to a channel
+20. --help                    - Display this help message
+`
+}
+
 func (s *store) handleCommand(command string, args []string, conn net.Conn) string {
 	switch command {
 
