@@ -122,7 +122,8 @@ func (s *store) handleCommand(command string, args []string, conn net.Conn) stri
 	case "PUBLISH":
 		s.publish(args[0], strings.Join(args[1:], " "))
 		return "OK"
-
+	case "tremis --help":
+		return s.help()
 	default:
 		return "ERROR : unkown command"
 	}
